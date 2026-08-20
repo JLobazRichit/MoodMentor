@@ -1,23 +1,9 @@
-from transformers import pipeline
+"""
+Lightweight sentiment analysis - delegates to emotion_model.
+Kept as separate import for backward compatibility.
+"""
+from emotion_model import analyze_sentiment
 
 
-print("Loading MoodMentor sentiment model...")
-
-
-sentiment_classifier = pipeline(
-    "sentiment-analysis",
-    model="distilbert/distilbert-base-uncased-finetuned-sst-2-english",
-)
-
-
-print("MoodMentor sentiment model loaded.")
-
-
-def analyze_sentiment(text: str):
-
-    result = sentiment_classifier(text)[0]
-
-    return {
-        "sentiment": result["label"],
-        "score": round(result["score"] * 100, 2),
-    }
+def analyze_sentiment_standalone(text: str):
+    return analyze_sentiment(text)
