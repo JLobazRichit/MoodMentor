@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {
   ArrowLeft,
@@ -7,12 +7,23 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../api'
 
 export default function MoodTracker() {
   const navigate = useNavigate()
 
   const [text, setText] = useState('')
   const [analyzing, setAnalyzing] = useState(false)
+  const [user, setUser] = useState<{ id: number } | null>(null)
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('moodmentor_user')
+    if (!storedUser) {
+      navigate('/login')
+      return
+    }
+    setUser(JSON.parse(storedUser))
+  }, [navigate])
 
   const [result, setResult] = useState<{
     emotion: string
@@ -34,18 +45,14 @@ export default function MoodTracker() {
       score: number
     }[]
   } | null>(null)
-const storedUser = localStorage.getItem('moodmentor_user')
-
-if (!storedUser) {
-    alert('Please login first.')
-    navigate('/login')
-    return
-}
-
-const user = JSON.parse(storedUser)
   const handleAnalyze = async () => {
     if (!text.trim()) {
       alert('Please tell me how you are feeling.')
+      return
+    }
+
+    if (!user) {
+      navigate('/login')
       return
     }
 
@@ -54,7 +61,7 @@ const user = JSON.parse(storedUser)
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/analyze',
+        `${API_URL}/api/analyze`,
         {
           text: text,
           user_id: user.id,

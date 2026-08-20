@@ -6,9 +6,9 @@ import {
   Trash2,
   Heart,
 } from 'lucide-react'
+import { API_URL } from '../api'
 
 import Sidebar from '../components/Sidebar'
-import Topbar from '../components/Topbar'
 
 interface JournalEntry {
   id: number
@@ -36,7 +36,7 @@ export default function Journal() {
   const loadJournals = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/journal/${userId}`
+        `${API_URL}/api/journal/${userId}`
       )
 
       setJournals(response.data.journals)
@@ -62,7 +62,7 @@ export default function Journal() {
     try {
 
       await axios.post(
-        'http://127.0.0.1:8000/api/journal',
+        `${API_URL}/api/journal`,
         {
           user_id: userId,
           title,
@@ -90,7 +90,7 @@ export default function Journal() {
     try {
 
       await axios.delete(
-        `http://127.0.0.1:8000/api/journal/${id}`
+        `${API_URL}/api/journal/${id}`
       )
 
       setJournals(

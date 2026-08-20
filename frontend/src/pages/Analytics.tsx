@@ -6,9 +6,9 @@ import {
   Heart,
   BookOpen,
 } from 'lucide-react'
+import { API_URL } from '../api'
 
 import Sidebar from '../components/Sidebar'
-import Topbar from '../components/Topbar'
 import MoodChart from '../components/MoodChart'
 import StatCard from '../components/StatCard'
 
@@ -42,7 +42,7 @@ export default function Analytics() {
 
     axios
       .get(
-        `http://127.0.0.1:8000/api/analytics/${user.id}`
+        `${API_URL}/api/analytics/${user.id}`
       )
       .then((response) => {
         setData(response.data)

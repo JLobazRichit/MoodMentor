@@ -6,9 +6,9 @@ import {
   Sparkles,
   User,
 } from 'lucide-react'
+import { API_URL } from '../api'
 
 import Sidebar from '../components/Sidebar'
-import Topbar from '../components/Topbar'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -51,7 +51,7 @@ export default function Companion() {
     try {
 
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/companion',
+        `${API_URL}/api/companion`,
         {
           user_id: user.id,
           message: userMessage

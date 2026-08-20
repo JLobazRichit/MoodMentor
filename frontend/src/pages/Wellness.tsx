@@ -7,9 +7,9 @@ import {
   Smile,
   CheckCircle,
 } from 'lucide-react'
+import { API_URL } from '../api'
 
 import Sidebar from '../components/Sidebar'
-import Topbar from '../components/Topbar'
 
 const activities = [
   {
@@ -55,7 +55,7 @@ export default function Wellness() {
     try {
 
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/wellness/${user.id}`
+        `${API_URL}/api/wellness/${user.id}`
       )
 
       setCompleted(
@@ -85,7 +85,7 @@ export default function Wellness() {
     try {
 
       await axios.post(
-        'http://127.0.0.1:8000/api/wellness',
+        `${API_URL}/api/wellness`,
         {
           user_id: user.id,
           activity

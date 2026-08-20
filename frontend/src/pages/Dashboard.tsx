@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../api'
 
 import {
   BookOpen,
@@ -86,7 +87,7 @@ export default function Dashboard() {
         const user = JSON.parse(storedUser)
 
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/dashboard/${user.id}`
+          `${API_URL}/api/dashboard/${user.id}`
         )
 
         if (response.data.success) {

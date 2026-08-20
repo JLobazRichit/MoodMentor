@@ -10,6 +10,7 @@ import {
   User,
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../api'
 
 export default function Register() {
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ export default function Register() {
 
   try {
     const response = await axios.post(
-      'http://127.0.0.1:8000/api/register',
+      `${API_URL}/api/register`,
       {
         username: name,
         email: email,
@@ -60,11 +61,6 @@ export default function Register() {
       'Unable to create account. Please make sure the MoodMentor backend is running.'
     )
   }
-
-
-    // Temporary frontend registration.
-    // Real database authentication will be connected later.
-    navigate('/dashboard')
   }
   return (
     <div className="min-h-screen bg-slate-50">

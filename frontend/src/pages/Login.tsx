@@ -9,6 +9,7 @@ import {
   User,
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../api'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -35,7 +36,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/login',
+        `${API_URL}/api/login`,
         {
           username: username.trim(),
           password: password,
@@ -47,8 +48,6 @@ export default function Login() {
           'moodmentor_user',
           JSON.stringify(response.data.user)
         );
-        window.location.href = "/dashboard";
-
         navigate('/dashboard')
       } else {
         setError(
