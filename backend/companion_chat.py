@@ -80,6 +80,34 @@ _INTENT_PATTERNS = {
         "keywords": ["think about", "opinion", "believe", "meaning", "truth", "real", "existence", "consciousness", "free will", "fate", "destiny", "karma"],
         "match": "contains",
     },
+    "suggest_songs": {
+        "keywords": ["suggest song", "recommend song", "song suggest", "song recommend", "play song", "music suggest", "music recommend", "suggest music", "recommend music", "good song", "some song", "any song", "song for", "music for", "suggest some music", "recommend some music", "play some music", "some music", "any music", "music suggestion", "song suggestion", "music rec"],
+        "match": "contains",
+    },
+    "suggest_book": {
+        "keywords": ["suggest book", "recommend book", "book suggest", "book recommend", "good book", "read book", "any book"],
+        "match": "contains",
+    },
+    "suggest_movie": {
+        "keywords": ["suggest movie", "recommend movie", "movie suggest", "movie recommend", "good movie", "watch movie", "any movie", "suggest show", "recommend show", "movie suggestion", "something to watch", "what to watch", "something to see", "movie rec", "movie to watch", "film to watch"],
+        "match": "contains",
+    },
+    "affirmation": {
+        "keywords": ["affirmation", "positive quote", "quote for", "inspire me", "something inspiring", "motivational quote", "uplifting", "pick me up", "encourage me"],
+        "match": "contains",
+    },
+    "breathing": {
+        "keywords": ["breathing exercise", "breathe", "breathing technique", "breath work", "deep breathing", "calm breathing", "box breathing", "4-7-8", "grounding exercise", "ground me", "teach me breathing", "help me breathe", "breathing exercise"],
+        "match": "contains",
+    },
+    "meditation": {
+        "keywords": ["meditate", "meditation", "mindful", "mindfulness", "guided meditation", "meditation technique"],
+        "match": "contains",
+    },
+    "tip": {
+        "keywords": ["give me a tip", "daily tip", "life tip", "any tip", "share a tip", "something helpful", "helpful advice", "life hack"],
+        "match": "contains",
+    },
     "creative": {
         "keywords": ["write", "story", "poem", "music", "art", "paint", "create", "imagine", "dream", "fantasy", "color"],
         "match": "contains",
@@ -216,6 +244,92 @@ _RESPONSES = {
     ],
 }
 
+
+# ── Practical request responses ────────────────────────────
+
+_SONG_SUGGESTIONS = {
+    'sad': [
+        'When you are feeling down, try these: Here Comes the Sun by The Beatles, Lean on Me by Bill Withers, or Three Little Birds by Bob Marley. Music has a way of reaching places words cannot.' ,
+        'For sad moments, try: Fix You by Coldplay, Someone Like You by Adele, or Bridge Over Troubled Water by Simon and Garfunkel. Let the music hold your feelings.' ,
+        'When sadness hits, try: Vienna by Billy Joel, Let It Be by The Beatles, or Happier by Ed Sheeran. Sometimes the right song at the right time changes everything.' ,
+    ],
+    'anger': [
+        'When you are angry, channel it with: Lose Yourself by Eminem, Stronger by Kelly Clarkson, or Fight Song by Rachel Platten. Turn that fire into fuel.' ,
+        'For anger, try: Stronger by Kanye West, Shout by Tears for Fears, or Survivor by Destiny Child. Let the music transform your frustration into strength.' ,
+        'When you need to release anger through music: In the End by Linkin Park, Born This Way by Lady Gaga, or Break Stuff by Limp Bizkit.' ,
+    ],
+    'fear': [
+        'When you are anxious, try: Weightless by Marconi Union, Clair de Lune by Debussy, or Sunset Lover by Petit Biscuit. Let the music wrap around you.' ,
+        'For fear and anxiety, listen to: Breathe Me by Sia, Ocean Eyes by Billie Eilish, or Experience by Ludovico Einaudi.' ,
+        'When worry takes over, try: River by Leon Bridges, Holocene by Bon Iver, or No Surprises by Radiohead. These create a safe sonic space.' ,
+    ],
+    'joy': [
+        'When you are happy, celebrate with: Happy by Pharrell Williams, Good as Hell by Lizzo, or Do not Stop Me Now by Queen!' ,
+        'For joyful moments: Walking on Sunshine by Katrina and the Waves, Here Comes the Sun by The Beatles, or Best Day of My Life by American Authors.' ,
+        'Keep the good vibes going: On Top of the World by Imagine Dragons, Shake It Off by Taylor Swift, or Uptown Funk by Bruno Mars.' ,
+    ],
+    'calm': [
+        'For peaceful moments, try: Clair de Lune by Debussy, Gymnopedie No. 1 by Satie, or Weightless by Marconi Union. Pure tranquility in musical form.' ,
+        'When you are feeling calm and want to deepen it: Nuvole Bianche by Ludovico Einaudi, River Flows in You by Yiruma, or Arrival of the Birds by The Cinematic Orchestra.' ,
+        'For serenity: Comptine d un autre ete by Yann Tiersen, Merry Christmas Mr. Lawrence by Ryuichi Sakamoto, or Bloom by The Paper Kites.' ,
+    ],
+    'default': [
+        'Here are some great songs: Someone Like You by Adele for reflection, Happy by Pharrell for joy, Weightless by Marconi Union for calm, and Lose Yourself by Eminem for motivation.' ,
+        'I would suggest: Here Comes the Sun by The Beatles for hope, River by Leon Bridges for peace, Stronger by Kelly Clarkson for resilience, and Do not Stop Me Now by Queen for energy.' ,
+        'Try this mix: Clair de Lune by Debussy for peace, Good as Hell by Lizzo for confidence, Fix You by Coldplay for comfort, and On Top of the World by Imagine Dragons for celebration.' ,
+    ],
+}
+
+_BOOK_SUGGESTIONS = {
+    'default': [
+        'Great reads for any mood: The Alchemist by Paulo Coelho for inspiration, Atomic Habits by James Clear for self-improvement, The Power of Now by Eckhart Tolle for peace of mind, or Educated by Tara Westover for an incredible life story.' ,
+        'I would recommend: Man Search for Meaning by Viktor Frankl for finding purpose, Big Magic by Elizabeth Gilbert for creativity, or The Midnight Library by Matt Haig for hope.' ,
+    ],
+}
+
+_MOVIE_SUGGESTIONS = {
+    'default': [
+        'Great films to watch: Inside Out for understanding emotions, Soul for finding purpose, Good Will Hunting for self-worth, or The Secret Life of Walter Mitty for adventure.' ,
+        'I would suggest: A Beautiful Mind for resilience, Soul by Pixar for meaning, The Pursuit of Happyness for inspiration, or Spirited Away for wonder.' ,
+    ],
+}
+
+_AFFIRMATIONS = [
+    'You are enough, exactly as you are. Your worth is not measured by productivity or perfection.' ,
+    'You are stronger than you think. Every challenge you have faced has prepared you for what is ahead.' ,
+    'You deserve love, peace, and happiness. Do not let anyone, including yourself, tell you otherwise.' ,
+    'This moment is temporary. Whatever you are going through will pass, and you will come out stronger.' ,
+    'You are not your mistakes. You are the lessons you have learned and the kindness you have chosen to carry forward.' ,
+    'It is okay to rest. It is okay to not be okay. You are doing the best you can, and that is always enough.' ,
+    'You have survived every bad day you have ever had. Your track record is 100 percent, and that is pretty remarkable.' ,
+    'Be gentle with yourself. You are a work in progress, and that is the most beautiful thing to be.' ,
+    'The world needs your unique light. Do not dim yourself to make others comfortable. Shine boldly.' ,
+    'You are capable of amazing things. Do not let self-doubt silence the voice that knows your potential.' ,
+]
+
+_BREATHING_EXERCISES = [
+    'Let us try the 4-7-8 technique: Breathe IN through your nose for 4 seconds. HOLD your breath for 7 seconds. Breathe OUT slowly through your mouth for 8 seconds. Repeat 4 times. Feel the tension leaving your body with each exhale.' ,
+    'Try box breathing: IN for 4 counts, HOLD for 4 counts, OUT for 4 counts, HOLD for 4 counts. Imagine tracing the sides of a square with your breath. Do this 5 times.' ,
+    'Here is a simple one: Place one hand on your chest and one on your belly. Breathe so only the belly hand moves. Breathe in for 4, out for 6. Do this 10 times.' ,
+    'Try the physiological sigh: Take a deep breath in through your nose, then take a second shorter breath on top of it. Then exhale slowly through your mouth. This is the fastest way to calm your nervous system. Repeat 3 times.' ,
+]
+
+_MEDITATION_GUIDANCE = [
+    'Find a comfortable position and close your eyes. Take three deep breaths. Now let your breathing return to normal. Focus only on the sensation of air entering and leaving your nostrils. When your mind wanders, gently bring it back. No judgment. Just breath. Try this for 5 minutes.' ,
+    'Sit quietly and close your eyes. Starting from the top of your head, slowly scan down through your body. Notice any tension without trying to fix it. Just acknowledge it. When you reach your toes, take a deep breath and imagine all that tension flowing out.' ,
+    'Close your eyes. With each breath, imagine you are breathing in calm and breathing out worry. Picture a peaceful place. Stay there for a few minutes. This place exists inside you and you can return anytime.' ,
+]
+
+_TIPS = [
+    'Try the 2-minute rule: If something takes less than 2 minutes, do it now. This prevents small tasks from piling up and creating overwhelm.' ,
+    'Write down 3 things you are grateful for before bed. It trains your brain to notice the good, even on hard days.' ,
+    'When anxious, name 5 things you can see, 4 you can hear, 3 you can touch, 2 you can smell, and 1 you can taste. This grounds you in the present.' ,
+    'Move your body for just 10 minutes. A short walk, some stretching, or dancing to one song can shift your entire mood.' ,
+    'Drink a glass of water right now. Dehydration affects mood, energy, and focus more than most people realize.' ,
+    'Put your phone in another room for 30 minutes. Digital detox, even briefly, can reduce anxiety and improve sleep quality.' ,
+    'Practice the 3 Cs: Catch the negative thought, Challenge it with evidence, Change it to something more balanced.' ,
+]
+
 # ── Emotion-specific responses (fallback) ──────────────────
 
 _EMOTION_RESPONSES = {
@@ -282,6 +396,8 @@ _GENERIC = [
 def _detect_intent(message):
     """Detect the user's intent from their message."""
     text = message.lower().strip()
+    # Remove common filler words for better matching
+    words = text.split()
 
     for intent, config in _INTENT_PATTERNS.items():
         keywords = config["keywords"]
@@ -291,8 +407,15 @@ def _detect_intent(message):
             if any(text.startswith(kw) for kw in keywords):
                 return intent
         elif match_type == "contains":
+            # Direct substring match
             if any(kw in text for kw in keywords):
                 return intent
+            # For multi-word keywords, check if all words appear (flexible match)
+            for kw in keywords:
+                kw_words = kw.split()
+                if len(kw_words) > 1:
+                    if all(w in words for w in kw_words):
+                        return intent
 
     return None
 
@@ -306,17 +429,45 @@ def _get_companion_reply(message):
     if _detect_intent(text) == "crisis":
         return _random.choice(_RESPONSES["crisis"])
 
-    # 2. Check for specific intents
+    # 2. Check for specific intents that use separate response pools
     intent = _detect_intent(text)
+
+    if intent == "suggest_songs":
+        result = analyze_emotion(text)
+        emotion = result["emotion"]
+        pool = _SONG_SUGGESTIONS.get(emotion, _SONG_SUGGESTIONS.get("default"))
+        return _random.choice(pool)
+
+    if intent == "suggest_book":
+        pool = _BOOK_SUGGESTIONS.get("default")
+        return _random.choice(pool)
+
+    if intent == "suggest_movie":
+        pool = _MOVIE_SUGGESTIONS.get("default")
+        return _random.choice(pool)
+
+    if intent == "affirmation":
+        return _random.choice(_AFFIRMATIONS)
+
+    if intent == "breathing":
+        return _random.choice(_BREATHING_EXERCISES)
+
+    if intent == "meditation":
+        return _random.choice(_MEDITATION_GUIDANCE)
+
+    if intent == "tip":
+        return _random.choice(_TIPS)
+
+    # 3. Check for intents that use _RESPONSES dict
     if intent and intent in _RESPONSES:
         return _random.choice(_RESPONSES[intent])
 
-    # 3. If no specific intent, use emotion detection for fallback
+    # 4. If no specific intent, use emotion detection for fallback
     result = analyze_emotion(text)
     emotion = result["emotion"]
 
     if emotion in _EMOTION_RESPONSES:
         return _random.choice(_EMOTION_RESPONSES[emotion])
 
-    # 4. Generic fallback
+    # 5. Generic fallback
     return _random.choice(_GENERIC)
