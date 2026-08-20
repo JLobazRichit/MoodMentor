@@ -7,13 +7,9 @@ load_dotenv()
 
 api_key = os.getenv("GEMINI_API_KEY")
 
-if not api_key:
-    raise ValueError(
-        "GEMINI_API_KEY is missing. "
-        "Please add it to the .env file."
-    )
-
-client = genai.Client(api_key=api_key)
+client = None
+if api_key:
+    client = genai.Client(api_key=api_key)
 
 
 def generate_recommendation(
@@ -76,6 +72,21 @@ Rules:
 - Do not provide medical diagnosis or treatment.
 - Return JSON only.
 """
+
+    if not client:
+        return {
+            "empathetic_response": "Thank you for sharing how you're feeling. I'm here to listen.",
+            "recommendations": [
+                "Take a few deep breaths to help calm your mind.",
+                "Write down what's on your mind in a journal.",
+                "Consider talking to someone you trust about your feelings."
+            ],
+            "wellness_activity": {
+                "title": "Mindful breathing",
+                "duration": "5 minutes",
+                "description": "Focus on your breath for a few minutes to center yourself."
+            }
+        }
 
     response = client.models.generate_content(
         model="gemini-2.0-flash",

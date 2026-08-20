@@ -217,13 +217,28 @@ def analyze_mood(req: AnalyzeRequest, db: Session = Depends(get_db)):
     emotion_result = analyze_emotion(req.text)
     sentiment_result = analyze_sentiment(req.text)
 
-    recommendation = generate_recommendation(
-        text=req.text,
-        emotion=emotion_result["emotion"],
-        emotion_score=emotion_result["score"],
-        sentiment=sentiment_result["sentiment"],
-        sentiment_score=sentiment_result["score"],
-    )
+    try:
+        recommendation = generate_recommendation(
+            text=req.text,
+            emotion=emotion_result["emotion"],
+            emotion_score=emotion_result["score"],
+            sentiment=sentiment_result["sentiment"],
+            sentiment_score=sentiment_result["score"],
+        )
+    except Exception:
+        recommendation = {
+            "empathetic_response": "Thank you for sharing how you're feeling.",
+            "recommendations": [
+                "Take a few deep breaths.",
+                "Write down what's on your mind.",
+                "Consider talking to someone you trust."
+            ],
+            "wellness_activity": {
+                "title": "Mindful breathing",
+                "duration": "5 minutes",
+                "description": "Focus on your breath for a few minutes."
+            }
+        }
 
     entry = MoodEntry(
         user_id=req.user_id,
@@ -386,6 +401,9 @@ def complete_wellness(req: WellnessRequest, db: Session = Depends(get_db)):
 @app.post("/api/companion")
 def companion_chat(req: CompanionRequest):
     from gemini_recommender import client
+
+    if not client:
+        return {"reply": "I'm here for you. It sounds like you're going through a lot. Would you like to tell me more about how you're feeling?"}
 
     prompt = f"""You are MoodMentor, an empathetic AI emotional wellness companion.
 The user says: {req.message}

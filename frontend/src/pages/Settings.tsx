@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from "../api";
 import {
   User,
   Bell,
@@ -13,7 +13,6 @@ import {
   Trash2,
   ChevronRight,
 } from "lucide-react";
-import { API_URL } from "../api";
 
 interface UserSettingsData {
   notifications: boolean;
@@ -100,9 +99,7 @@ const Settings: React.FC = () => {
    */
   const loadSettings = async (id: number) => {
     try {
-      const response = await axios.get(
-        `${API_URL}/api/settings/${id}`
-      );
+      const response = await api.get(`/api/settings/${id}`);
 
       if (!response.data.success) {
         alert(
@@ -172,9 +169,7 @@ const Settings: React.FC = () => {
     setSaving(true);
 
     try {
-      const response = await axios.put(
-        `${API_URL}/api/settings`,
-        {
+      const response = await api.put('/api/settings', {
           user_id: userId,
           username: name,
           email: email,
@@ -267,9 +262,7 @@ const Settings: React.FC = () => {
     setChangingPassword(true);
 
     try {
-      const response = await axios.put(
-        `${API_URL}/api/settings/password`,
-        {
+      const response = await api.put('/api/settings/password', {
           user_id: userId,
           current_password: currentPassword,
           new_password: newPassword,
@@ -332,9 +325,7 @@ const Settings: React.FC = () => {
     }
 
     try {
-      const response = await axios.delete(
-        `${API_URL}/api/settings/account/${userId}`
-      );
+      const response = await api.delete(`/api/settings/account/${userId}`);
 
       if (!response.data.success) {
         alert(
