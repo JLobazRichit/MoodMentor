@@ -402,23 +402,27 @@ def complete_wellness(req: WellnessRequest, db: Session = Depends(get_db)):
 def companion_chat(req: CompanionRequest):
     from gemini_recommender import client
 
-    if not client:
-        return {"reply": "I'm here for you. It sounds like you're going through a lot. Would you like to tell me more about how you're feeling?"}
-
-    prompt = f"""You are MoodMentor, an empathetic AI emotional wellness companion.
+    # Try Gemini first if available
+    if client:
+        prompt = f"""You are MoodMentor, an empathetic AI emotional wellness companion.
 The user says: {req.message}
 Respond with a supportive, warm, and helpful message. Keep it under 3 sentences.
 Do not use markdown. Be conversational and caring."""
 
-    try:
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt,
-        )
-        reply = response.text.strip()
-    except Exception:
-        reply = "I'm here for you. It sounds like you're going through a lot. Would you like to tell me more about how you're feeling?"
+        try:
+            response = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=prompt,
+            )
+            reply = response.text.strip()
+            if reply and len(reply) > 10:
+                return {"reply": reply}
+        except Exception:
+            pass
 
+    # Emotion-aware fallback when Gemini is unavailable
+    from companion_chat import _get_companion_reply
+    reply = _get_companion_reply(req.message)
     return {"reply": reply}
 
 
