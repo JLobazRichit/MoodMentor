@@ -43,7 +43,8 @@ export default function Register() {
         username: name,
         email: email,
         password: password,
-      }
+      },
+      { timeout: 60000 }
     )
 
     if (response.data.success) {
@@ -57,9 +58,15 @@ export default function Register() {
   } catch (error) {
     console.error('Registration failed:', error)
 
-    alert(
-      'Unable to create account. Please make sure the MoodMentor backend is running.'
-    )
+    if (axios.isAxiosError(error)) {
+      if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
+        alert('Server is waking up, please wait a moment and try again...')
+      } else {
+        alert(error.response?.data?.detail || error.message || 'Unable to connect to MoodMentor server.')
+      }
+    } else {
+      alert('Something went wrong. Please try again.')
+    }
   }
   }
   return (

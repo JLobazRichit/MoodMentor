@@ -40,7 +40,8 @@ export default function Login() {
         {
           username: username.trim(),
           password: password,
-        }
+        },
+        { timeout: 60000 }
       )
 
       if (response.data.success) {
@@ -58,10 +59,15 @@ export default function Login() {
       console.error('Login failed:', error)
 
       if (axios.isAxiosError(error)) {
-        setError(
-          error.response?.data?.detail ||
-          'Unable to connect to MoodMentor server.'
-        )
+        if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
+          setError('Server is waking up, please wait a moment and try again...')
+        } else {
+          setError(
+            error.response?.data?.detail ||
+            error.message ||
+            'Unable to connect to MoodMentor server.'
+          )
+        }
       } else {
         setError('Something went wrong. Please try again.')
       }
