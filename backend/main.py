@@ -415,17 +415,19 @@ Do not use markdown formatting or bullet points.
 
 User message: {req.message}"""
 
-        try:
-            response = client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=prompt,
-            )
-            reply = response.text.strip()
-            if reply and len(reply) > 10:
-                return {"reply": reply}
-        except Exception as e:
-            # Log but don't crash
-            print(f"Gemini error: {e}")
+        # Try multiple model names for compatibility
+        for model_name in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                )
+                reply = response.text.strip()
+                if reply and len(reply) > 10:
+                    return {"reply": reply}
+            except Exception as e:
+                print(f"Gemini {model_name} error: {e}")
+                continue
 
     # Emotion-aware fallback when Gemini is unavailable
     from companion_chat import _get_companion_reply
@@ -435,12 +437,32 @@ User message: {req.message}"""
 
 @app.get("/api/companion/status")
 def companion_status():
-    """Debug endpoint to check if Gemini is connected."""
+    """Debug endpoint to check if Gemini is connected and working."""
     from gemini_recommender import client
+    gemini_works = False
+    gemini_error = None
+
+    if client:
+        # Quick test call
+        for model_name in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents="Say hi in one word",
+                )
+                if response.text and len(response.text.strip()) > 0:
+                    gemini_works = True
+                    break
+            except Exception as e:
+                gemini_error = str(e)[:200]
+                continue
+
     return {
         "gemini_connected": client is not None,
+        "gemini_working": gemini_works,
         "api_key_set": os.getenv("GEMINI_API_KEY") is not None,
-        "message": "Gemini is connected and ready" if client else "Using local fallback - add GEMINI_API_KEY to Render for full AI"
+        "gemini_error": gemini_error,
+        "message": "Gemini is connected and working" if gemini_works else ("Gemini connected but failing: " + (gemini_error or "unknown") if client else "No Gemini - using local fallback")
     }
 
 
