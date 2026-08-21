@@ -7,9 +7,49 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key = os.getenv("GEMINI_API_KEY")
-GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}" if api_key else None
 
-# Client object for compatibility - None means no Gemini
+
+def _try_gemini(prompt):
+    """Try multiple Gemini endpoints and return the first successful response."""
+    if not api_key:
+        return None
+
+    endpoints = [
+        {
+            "url": f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}",
+            "body": {"contents": [{"parts": [{"text": prompt}]}]},
+            "extract": lambda d: d["candidates"][0]["content"]["parts"][0]["text"],
+        },
+        {
+            "url": f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}",
+            "body": {"contents": [{"parts": [{"text": prompt}]}]},
+            "extract": lambda d: d["candidates"][0]["content"]["parts"][0]["text"],
+        },
+        {
+            "url": f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={api_key}",
+            "body": {"contents": [{"parts": [{"text": prompt}]}]},
+            "extract": lambda d: d["candidates"][0]["content"]["parts"][0]["text"],
+        },
+    ]
+
+    for ep in endpoints:
+        try:
+            resp = requests.post(
+                ep["url"],
+                json=ep["body"],
+                timeout=30,
+                headers={"Content-Type": "application/json"},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            text = ep["extract"](data)
+            if text and len(text.strip()) > 0:
+                return text.strip()
+        except Exception:
+            continue
+    return None
+
+
 class _GeminiClient:
     def __init__(self):
         self.available = api_key is not None
@@ -17,20 +57,15 @@ class _GeminiClient:
     def generate_content(self, prompt):
         if not self.available:
             raise Exception("No Gemini API key")
-        resp = requests.post(
-            GEMINI_API_URL,
-            json={"contents": [{"parts": [{"text": prompt}]}]},
-            timeout=30,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
-        # Return a simple object with .text attribute
-        class _Result:
-            pass
-        r = _Result()
-        r.text = text
-        return r
+        result = _try_gemini(prompt)
+        if result:
+            class _R:
+                pass
+            r = _R()
+            r.text = result
+            return r
+        raise Exception("All Gemini endpoints failed")
+
 
 client = _GeminiClient() if api_key else None
 
