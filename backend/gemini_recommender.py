@@ -1,22 +1,38 @@
 import os
 import json
 import random
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
 api_key = os.getenv("GEMINI_API_KEY")
+GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}" if api_key else None
 
-# Initialize the stable google-generativeai SDK
-try:
-    import google.generativeai as genai_lib
-    if api_key:
-        genai_lib.configure(api_key=api_key)
-        client = genai_lib.GenerativeModel("gemini-1.5-flash")
-    else:
-        client = None
-except Exception:
-    client = None
+# Client object for compatibility - None means no Gemini
+class _GeminiClient:
+    def __init__(self):
+        self.available = api_key is not None
+
+    def generate_content(self, prompt):
+        if not self.available:
+            raise Exception("No Gemini API key")
+        resp = requests.post(
+            GEMINI_API_URL,
+            json={"contents": [{"parts": [{"text": prompt}]}]},
+            timeout=30,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        text = data["candidates"][0]["content"]["parts"][0]["text"]
+        # Return a simple object with .text attribute
+        class _Result:
+            pass
+        r = _Result()
+        r.text = text
+        return r
+
+client = _GeminiClient() if api_key else None
 
 
 # ── Emotion-aware recommendation database ──────────────────
