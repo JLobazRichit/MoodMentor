@@ -2,15 +2,21 @@ import os
 import json
 import random
 from dotenv import load_dotenv
-from google import genai
 
 load_dotenv()
 
 api_key = os.getenv("GEMINI_API_KEY")
 
-client = None
-if api_key:
-    client = genai.Client(api_key=api_key)
+# Initialize the stable google-generativeai SDK
+try:
+    import google.generativeai as genai_lib
+    if api_key:
+        genai_lib.configure(api_key=api_key)
+        client = genai_lib.GenerativeModel("gemini-1.5-flash")
+    else:
+        client = None
+except Exception:
+    client = None
 
 
 # ── Emotion-aware recommendation database ──────────────────
@@ -254,7 +260,7 @@ Rules: No Markdown, no bold, no numbered lists. Keep empathetic response under 3
         }
 
     try:
-        response = client.models.generate_content(model="gemini-2.0-flash", contents=prompt)
+        response = client.generate_content(prompt)
     except Exception:
         context = _detect_context(text)
         return {

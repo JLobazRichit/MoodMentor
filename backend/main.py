@@ -415,19 +415,13 @@ Do not use markdown formatting or bullet points.
 
 User message: {req.message}"""
 
-        # Try multiple model names for compatibility
-        for model_name in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
-            try:
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                )
-                reply = response.text.strip()
-                if reply and len(reply) > 10:
-                    return {"reply": reply}
-            except Exception as e:
-                print(f"Gemini {model_name} error: {e}")
-                continue
+        try:
+            response = client.generate_content(prompt)
+            reply = response.text.strip()
+            if reply and len(reply) > 10:
+                return {"reply": reply}
+        except Exception as e:
+            print(f"Gemini error: {e}")
 
     # Emotion-aware fallback when Gemini is unavailable
     from companion_chat import _get_companion_reply
@@ -443,19 +437,12 @@ def companion_status():
     gemini_error = None
 
     if client:
-        # Quick test call
-        for model_name in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]:
-            try:
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents="Say hi in one word",
-                )
-                if response.text and len(response.text.strip()) > 0:
-                    gemini_works = True
-                    break
-            except Exception as e:
-                gemini_error = str(e)[:200]
-                continue
+        try:
+            response = client.generate_content("Say hi in one word")
+            if response.text and len(response.text.strip()) > 0:
+                gemini_works = True
+        except Exception as e:
+            gemini_error = str(e)[:200]
 
     return {
         "gemini_connected": client is not None,
