@@ -159,9 +159,9 @@ _RESPONSES = {
         "Philosophers have debated this for centuries, and there's no single answer. But I believe meaning comes from living authentically, loving deeply, and growing through our experiences. Your life has meaning simply because you're in it. What gives your days purpose?",
     ],
     "question_general": [
-        "That's a really thoughtful question. I may not have all the answers, but I can share what I know and we can explore it together. Can you tell me more about what you're curious about?",
-        "Great question! I'd love to think through this with you. Let me share my perspective, and you can tell me what resonates. What specifically are you most curious about?",
-        "I appreciate your curiosity! Thinking deeply about things is a sign of a thoughtful mind. Let me offer what I can, and we can explore this together. What aspect interests you most?",
+        "That's a great question! I love exploring topics with you. While I'm a wellness companion at heart, I'm happy to share what I know. Feel free to ask me anything — from science to daily life, I'm here for it.",
+        "I appreciate your curiosity! Asking questions is how we grow. I may not be a search engine, but I can share what I know and help you think through it. What specifically interests you most about this topic?",
+        "That's an interesting question to explore! I enjoy thinking about things beyond just emotions. Let me share my perspective, and we can discuss it further. What aspect are you most curious about?",
     ],
     "gratitude": [
         "You're very welcome! It means a lot that you reached out. Remember, taking care of your emotional wellbeing is one of the kindest things you can do for yourself. I'm always here when you need me.",
@@ -232,6 +232,7 @@ _RESPONSES = {
         "Here's one for you: Why did the emotion go to therapy? Because it had too many feelings! But seriously, laughter really is good medicine. It releases endorphins and reduces stress hormones. What usually makes YOU laugh?",
         "I wish I could tell you a perfect joke, but here's something that might make you smile: You're talking to an AI about feelings, and that's actually pretty wonderful. The fact that you're checking in with yourself shows real emotional intelligence!",
         "Okay, here's my best one: I tried to write a joke about emotions, but I couldn't find the right tone! Badum-tss. But you know what? The fact that you're here, engaging with your wellbeing, is the real win. What else is on your mind?",
+        "Why did the psychology student break up with the biology student? Because they had no chemistry! Here is another: What do you call a fish without eyes? A fsh! Want more?",
     ],
     "comfort": [
         "I wish I could give you a real hug right now, but here's a virtual one: Consider yourself hugged tightly. You are safe here. You are cared for. Whatever you're going through, you don't have to face it alone.",
@@ -392,6 +393,37 @@ _GENERIC = [
     "I'm listening, and I care about how you're doing. What would feel most helpful to talk about?",
 ]
 
+# ── Knowledge base for common topics ──────────────────────
+
+_KNOWLEDGE = {
+    "quantum physics": "Quantum physics is the study of the smallest things in the universe — atoms and subatomic particles. The key ideas are: particles can exist in multiple states at once (superposition), they can be connected across distances (entanglement), and observing something changes it (measurement problem). It's counterintuitive because our everyday experience doesn't prepare us for how weird reality gets at tiny scales. Einstein called it 'spooky action at a distance.' Despite being strange, quantum physics powers your phone, computers, and MRI machines.",
+    "physics": "Physics is the study of matter, energy, and the fundamental forces of nature. It ranges from the tiniest particles (quantum physics) to the largest structures in the universe (cosmology). The four fundamental forces are gravity, electromagnetism, the strong nuclear force, and the weak nuclear force. Physics helps us understand everything from why the sky is blue to how black holes work. It's the foundation of all other sciences.",
+    "math": "Mathematics is the language of patterns, structures, and relationships. It includes arithmetic (numbers), algebra (equations), geometry (shapes), calculus (change), and statistics (data). Math is used everywhere — from engineering and science to art and music. The beautiful thing about math is that its truths are universal and eternal. What aspect of math are you curious about?",
+    "cooking": "Cooking is both an art and a science! The basic principles are: heat transfer (how food absorbs energy), chemical reactions (like Maillard browning for flavor), and balancing flavors (salt, sweet, sour, bitter, umami). The most important tip is to taste as you go and season gradually. Good cooking starts with fresh ingredients and simple techniques. Would you like a specific recipe or cooking tip?",
+    "pasta": "Making pasta from scratch is easier than you think! Basic recipe: Mix 2 cups flour with 3 large eggs and a pinch of salt. Knead for 10 minutes until smooth, then let it rest for 30 minutes. Roll it thin (by hand or with a machine), cut into your desired shape, and cook in boiling salted water for 2-4 minutes. The key is getting the dough smooth and elastic — if it's too dry, add a tiny bit of water. Fresh pasta tastes incredible with just butter, parmesan, and fresh herbs.",
+    "exercise": "Regular exercise is one of the best things you can do for your mental and physical health. For beginners: start with 15-20 minutes of walking daily. Gradually add strength exercises (bodyweight squats, push-ups, planks). Aim for 150 minutes of moderate activity per week. The key is consistency over intensity. Exercise releases endorphins, reduces cortisol, improves sleep, and boosts mood. Find something you enjoy — dancing, swimming, cycling — and it won't feel like a chore.",
+    "sleep tips": "Good sleep hygiene includes: keep a consistent sleep schedule (even on weekends), avoid screens 1 hour before bed, keep your room cool (65-68°F/18-20°C), limit caffeine after 2pm, and create a calming bedtime routine. The 4-7-8 breathing technique (inhale 4s, hold 7s, exhale 8s) helps many people fall asleep. If you can't sleep after 20 minutes, get up and do something calming, then return. Avoid napping after 3pm.",
+    "nutrition": "Good nutrition is about balance, not perfection. Focus on: plenty of vegetables and fruits, whole grains for sustained energy, lean proteins for muscle and brain health, healthy fats (olive oil, nuts, avocado), and staying hydrated (8 glasses of water daily). The Mediterranean diet is one of the most well-researched healthy eating patterns. Remember — food is fuel AND pleasure. Enjoy what you eat mindfully.",
+    "procrastination": "Procrastination is usually about emotion, not time management. We avoid tasks that trigger anxiety, boredom, or perfectionism. The solution: break tasks into tiny steps (2-minute rule), start with the easiest part, set specific deadlines, remove distractions, and reward yourself for starting (not finishing). The Pomodoro Technique works well: 25 minutes of focus, 5-minute break. Be kind to yourself — procrastination is human, not a character flaw.",
+    "anxiety": "Anxiety is your brain's alarm system going off, often when there's no real danger. It's very common and very treatable. Short-term tools: deep breathing (4-7-8 technique), grounding (5-4-3-2-1 senses exercise), journaling your worries, and limiting caffeine. Long-term: regular exercise, therapy (especially CBT), mindfulness meditation, and adequate sleep. Remember: anxiety lies to you. You've survived every anxious moment so far. What specifically triggers your anxiety?",
+    "depression": "Depression is more than just feeling sad — it's a real medical condition that affects how you think, feel, and function. It's not a weakness or something you can just 'snap out of.' If you're experiencing persistent low mood, loss of interest, changes in sleep/appetite, or difficulty concentrating, please reach out to a healthcare professional. In the meantime: maintain a routine, get sunlight, move your body, stay connected with people, and be incredibly gentle with yourself. You deserve help and support.",
+    "meditation": "Meditation is the practice of training your attention and awareness. Here is how to start: sit comfortably, close your eyes, focus on your breath. When your mind wanders (it will), gently bring it back without judgment. Start with just 5 minutes daily. Types include: mindfulness (focus on breath/body), loving-kindness (directing compassion), and body scan (progressive relaxation). The benefits are well-documented: reduced stress, better focus, improved emotional regulation, and even structural brain changes. There is no wrong way to meditate — even trying counts.",
+    "yoga": "Yoga combines physical postures, breathing exercises, and meditation for total wellbeing. For beginners: start with Hatha or Yin yoga (gentler styles). Key poses for stress relief: Child's Pose, Cat-Cow, Forward Fold, Legs Up the Wall, and Corpse Pose (Savasana). Even 15 minutes daily makes a difference. Yoga reduces cortisol, improves flexibility, builds strength, and calms the nervous system. You do not need to be flexible to start — flexibility is a result, not a requirement.",
+    "time management": "Effective time management starts with knowing your priorities. Try the Eisenhower Matrix: urgent+important (do now), important but not urgent (schedule), urgent but not important (delegate), neither (eliminate). Other tips: batch similar tasks, use time blocks, tackle hard tasks when your energy peaks (usually morning), and build in buffer time. Remember: being busy is not the same as being productive. Rest is productive too.",
+    "self-esteem": "Self-esteem is how you value yourself. Low self-esteem often comes from negative self-talk, comparison to others, or past experiences. To build it: challenge negative thoughts (are they actually true?), celebrate small wins, set achievable goals, practice self-compassion, surround yourself with supportive people, and focus on your strengths. You are not defined by your worst moments. Treat yourself the way you would treat a good friend.",
+    "productivity": "Real productivity is about working smarter, not harder. Key principles: know your top 3 priorities each day, work in focused blocks (90 minutes max), take regular breaks, eliminate distractions proactively, and say no to non-essential commitments. The best productivity system is the one you actually use. Start simple: pick your most important task and do it first, before checking email or social media. Protect your morning energy.",
+    "relationships": "Healthy relationships are built on mutual respect, communication, and boundaries. Key practices: listen to understand (not to respond), express needs clearly, respect differences, apologize genuinely, and maintain your own identity. Red flags include: controlling behavior, constant criticism, gaslighting, and isolation from loved ones. Remember: you cannot change another person, only yourself. A relationship should add to your life, not drain it.",
+    "cooking healthy": "Healthy cooking does not have to be complicated. Focus on: more vegetables (aim for half your plate), lean proteins (chicken, fish, beans, tofu), whole grains (brown rice, quinoa, whole wheat), and healthy cooking methods (grilling, steaming, roasting instead of frying). Flavor your food with herbs, spices, citrus, and garlic instead of excess salt. Meal prep on weekends to make weekday cooking easier. The best healthy diet is one you enjoy and can sustain.",
+    "travel": "Travel opens your mind to new cultures, perspectives, and experiences. Budget tips: book flights on Tuesdays, travel in shoulder season, stay in hostels or Airbnbs, eat where locals eat, and use public transit. For meaningful travel: slow down (stay longer in fewer places), learn basic phrases in the local language, be curious about local customs, and keep a journal. The best trips are about connection — with people, places, and yourself.",
+    "reading": "Reading is one of the best habits for mental health and personal growth. Benefits include: reduced stress (by up to 68%), improved focus, expanded vocabulary, better sleep (when reading physical books), and increased empathy. To build a reading habit: start with books you genuinely enjoy, carry a book everywhere, set a small daily goal (10 pages), and join a book club for accountability. What genre interests you? I can suggest some great reads.",
+    "technology": "Technology shapes every aspect of modern life. Key trends right now include: AI and machine learning (like ChatGPT), quantum computing, renewable energy tech, biotechnology, and space exploration. For mental health, technology can be a double-edged sword — it connects us but can also increase anxiety and comparison. Healthy tech habits: set screen time limits, use blue light filters at night, take regular digital detoxes, and be intentional about what you consume online.",
+    "space": "Space is incredibly vast and fascinating. Our observable universe is about 93 billion light-years in diameter. Key facts: there are more stars in the universe than grains of sand on Earth, light takes 8 minutes to reach us from the Sun, a day on Venus is longer than its year, and there is a giant cloud of alcohol in space (Sagittarius B2). The nearest star to us (after the Sun) is Proxima Centauri, about 4.24 light-years away. We are all literally made of star stuff — the elements in our bodies were formed in ancient supernovae.",
+    "history": "History helps us understand who we are and how we got here. Some pivotal moments: the invention of writing (3400 BC), the fall of Rome (476 AD), the Renaissance (1300s-1600s), the Scientific Revolution, the Industrial Revolution, the World Wars, the Moon landing (1969), and the rise of the internet (1990s). History shows us that humanity has faced enormous challenges before and found ways through. What period or event interests you most?",
+    "psychology": "Psychology is the scientific study of the mind and behavior. Key concepts: cognitive biases (systematic errors in thinking), the Big Five personality traits (openness, conscientiousness, extraversion, agreeableness, neuroticism), attachment theory (how early bonds shape relationships), and the fight-or-flight response. Understanding psychology helps you make better decisions, understand others, and navigate emotions. Books like 'Thinking, Fast and Slow' by Daniel Kahneman are great starting points.",
+    "philosophy general": "Philosophy explores fundamental questions about existence, knowledge, ethics, and meaning. Key branches: metaphysics (what is real?), epistemology (how do we know things?), ethics (what is right and wrong?), and logic (how do we reason?). Famous philosophers include Socrates (question everything), Aristotle (virtue ethics), Kant (categorical imperative), Nietzsche (will to power), and existentialists like Sartre and Camus. Philosophy is not abstract — it shapes how we live, love, and make choices every day.",
+    "economics": "Economics studies how people allocate scarce resources. Key concepts: supply and demand, inflation, GDP, opportunity cost, and market equilibrium. Personal finance basics: live below your means, save 20% of income if possible, invest early (compound interest is powerful), avoid high-interest debt, and build an emergency fund (3-6 months expenses). Understanding economics helps you make better financial decisions and understand the world around you.",
+}
+
 
 def _detect_intent(message):
     """Detect the user's intent from their message."""
@@ -429,7 +461,28 @@ def _get_companion_reply(message):
     if _detect_intent(text) == "crisis":
         return _random.choice(_RESPONSES["crisis"])
 
-    # 2. Check for specific intents that use separate response pools
+    # 2. Check knowledge base for factual/general questions
+    for topic, answer in _KNOWLEDGE.items():
+        if topic in text_lower:
+            return answer
+
+    # Also check for 'how to' / 'how do I' patterns for knowledge
+    how_to_patterns = ["how to", "how do i", "how can i", "how do you", "explain", "what is a", "what are", "tell me about", "describe", "define"]
+    for pattern in how_to_patterns:
+        if pattern in text_lower:
+            # Try to find a matching topic in knowledge base
+            for topic, answer in _KNOWLEDGE.items():
+                topic_words = topic.split()
+                if any(w in text_lower for w in topic_words if len(w) > 3):
+                    return answer
+            # If no topic matches, give a helpful general response
+            return _random.choice([
+                "That's an interesting question! While I'm primarily a wellness companion, I love exploring different topics with you. Could you tell me more about what you're curious about? I'll share what I know.",
+                "Great question! I enjoy thinking about a wide range of topics. Let me share my perspective: every question is worth asking. What specifically about this interests you most?",
+                "I appreciate your curiosity! While I'm focused on emotional wellness, I'm happy to explore any topic with you. The fact that you're asking questions shows great intellectual curiosity.",
+            ])
+
+    # 3. Check for specific intents that use separate response pools
     intent = _detect_intent(text)
 
     if intent == "suggest_songs":
@@ -458,16 +511,16 @@ def _get_companion_reply(message):
     if intent == "tip":
         return _random.choice(_TIPS)
 
-    # 3. Check for intents that use _RESPONSES dict
+    # 4. Check for intents that use _RESPONSES dict
     if intent and intent in _RESPONSES:
         return _random.choice(_RESPONSES[intent])
 
-    # 4. If no specific intent, use emotion detection for fallback
+    # 5. If no specific intent, use emotion detection for fallback
     result = analyze_emotion(text)
     emotion = result["emotion"]
 
     if emotion in _EMOTION_RESPONSES:
         return _random.choice(_EMOTION_RESPONSES[emotion])
 
-    # 5. Generic fallback
+    # 6. Generic fallback
     return _random.choice(_GENERIC)

@@ -404,10 +404,16 @@ def companion_chat(req: CompanionRequest):
 
     # Try Gemini first if available
     if client:
-        prompt = f"""You are MoodMentor, an empathetic AI emotional wellness companion.
-The user says: {req.message}
-Respond with a supportive, warm, and helpful message. Keep it under 3 sentences.
-Do not use markdown. Be conversational and caring."""
+        prompt = f"""You are MoodMentor, a warm and knowledgeable AI wellness companion.
+You can answer ANY question — emotional, practical, educational, creative, or casual.
+You are empathetic, helpful, and conversational. You give thoughtful, detailed answers.
+If the user shares feelings, respond with empathy and support.
+If the user asks a question, answer it thoroughly and accurately.
+If the user makes a request (songs, books, tips, exercises), give specific, useful suggestions.
+Always be warm, caring, and genuine. Keep responses natural and conversational (2-5 sentences, longer if the question deserves it).
+Do not use markdown formatting or bullet points.
+
+User message: {req.message}"""
 
         try:
             response = client.models.generate_content(
@@ -417,13 +423,25 @@ Do not use markdown. Be conversational and caring."""
             reply = response.text.strip()
             if reply and len(reply) > 10:
                 return {"reply": reply}
-        except Exception:
-            pass
+        except Exception as e:
+            # Log but don't crash
+            print(f"Gemini error: {e}")
 
     # Emotion-aware fallback when Gemini is unavailable
     from companion_chat import _get_companion_reply
     reply = _get_companion_reply(req.message)
     return {"reply": reply}
+
+
+@app.get("/api/companion/status")
+def companion_status():
+    """Debug endpoint to check if Gemini is connected."""
+    from gemini_recommender import client
+    return {
+        "gemini_connected": client is not None,
+        "api_key_set": os.getenv("GEMINI_API_KEY") is not None,
+        "message": "Gemini is connected and ready" if client else "Using local fallback - add GEMINI_API_KEY to Render for full AI"
+    }
 
 
 # ── Settings ───────────────────────────────────────────────
